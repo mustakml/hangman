@@ -1,1 +1,1 @@
-# hangman
+Hangman Implemenation within a Terminal

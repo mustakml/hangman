@@ -49,8 +49,6 @@ HANGMAN_PICS = [
 
 words = ["python", "choice", "school", "university", "country"]
 
-# display board implementieren
-
 def choose_word(words):
     return random.choice(words)
 
@@ -77,6 +75,7 @@ def main():
 
     print("Willkommen bei Hangman!")
     while tries > 0:
+        print(HANGMAN_PICS[6 - tries])
         guess = make_guess(secret_word, guessed_letters)
         # display board einbauen bei schleifendurchgang 
         if guess in secret_word:
@@ -89,7 +88,8 @@ def main():
             print(f"{guess} ist nicht im Wort. Du hast noch {tries} Versuche.")
         
         if tries == 0:
-            print(f"All Versuche aufgebraucht, du bist raus")
+            print(f"Alle Versuche aufgebraucht, du bist raus")
+            print(HANGMAN_PICS[6])
 
 if __name__ == "__main__":
     main()
