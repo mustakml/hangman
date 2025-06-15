@@ -52,6 +52,10 @@ words = ["python", "choice", "school", "university", "country"]
 def choose_word(words):
     return random.choice(words)
 
+def play_again():
+    return input("Nochmal spielen? (j/n): ").lower().startswith("j")
+
+
 
 def make_guess(secret_word, guessed_letters):
     while True:
@@ -82,7 +86,11 @@ def main():
             print(f"{guess} ist im Wort")
             if all(letter in guessed_letters for letter in secret_word):
                 print(f"Gewonnen! Das Wort ist '{secret_word}' ")
-                break
+                antwort = play_again()
+                if play_again():
+                    main()
+                else:
+                    break
         else:
             tries -= 1
             print(f"{guess} ist nicht im Wort. Du hast noch {tries} Versuche.")
@@ -90,7 +98,10 @@ def main():
         if tries == 0:
             print(f"Alle Versuche aufgebraucht, du bist raus")
             print(HANGMAN_PICS[6])
-
+            if play_again():
+                main()
+            else:
+                break
 if __name__ == "__main__":
     main()
 
