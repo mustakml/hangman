@@ -1,4 +1,6 @@
 import random
+import requests
+from requests import get
 
 HANGMAN_PICS = [
     """
@@ -53,7 +55,7 @@ def choose_word(words):
     return random.choice(words)
 
 def display_word(secret_word, guessed_letters):
-    return " ".join([letter if letter in guessed_letters else "_" for letter in secret_word])
+    return " ".join([letter if letter in guessed_letters else '_' for letter in secret_word])
 
 def play_again():
     return input("Nochmal spielen? (j/n): ").lower().startswith("j")
@@ -83,13 +85,12 @@ def main():
     print("Willkommen bei Hangman!")
     while tries > 0:
         print(HANGMAN_PICS[6 - tries])
+        print("Wort:", display_word(secret_word, guessed_letters))
         guess = make_guess(secret_word, guessed_letters)
-        # display board einbauen bei schleifendurchgang 
         if guess in secret_word:
             print(f"{guess} ist im Wort")
             if all(letter in guessed_letters for letter in secret_word):
                 print(f"Gewonnen! Das Wort ist '{secret_word}' ")
-                antwort = play_again()
                 if play_again():
                     main()
                 else:
@@ -106,7 +107,11 @@ def main():
             else:
                 break
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nSpiel abgebrochen.")
+
 
 
         
